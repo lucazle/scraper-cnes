@@ -1,27 +1,39 @@
-# Scraper CNES
+# CNES Scraper
 
-Web scraper em Python que coleta estabelecimentos de saúde do
-[CNES](https://cnes.datasus.gov.br/) (Cadastro Nacional de Estabelecimentos de Saúde).
-Projeto da disciplina de Recuperação de Informação.
+Python web scraper that collects health facility data from
+[CNES](https://cnes.datasus.gov.br/) (Brazil's National Registry of Health
+Establishments). Built for the Information Retrieval course.
 
-## Como funciona
+## How it works
 
-O site do CNES carrega os dados por JavaScript, então o HTML da página vem vazio.
-Em vez de automatizar um navegador, o scraper chama diretamente a API JSON que a
-própria página usa:
+The CNES website loads its data with JavaScript, so the HTML served by the page
+is an empty template. Instead of automating a browser, the scraper calls the
+same JSON API that the page itself uses:
 
-1. Busca a lista de estabelecimentos de um município.
-2. Para cada estabelecimento, busca o detalhe (endereço, telefone, e-mail, coordenadas).
-3. Busca também os horários de funcionamento.
-4. Salva tudo em um arquivo CSV.
+1. Fetches the list of facilities for a municipality.
+2. For each facility, fetches its details (address, phone, e-mail, coordinates).
+3. Also fetches its opening hours.
+4. Saves everything to a CSV file.
 
-O script visita a página antes de chamar a API, para receber os cookies de sessão,
-e faz uma pausa entre as requisições para não sobrecarregar o servidor.
+The script visits the website first to receive the session cookies, and it
+pauses between requests to avoid overloading the server.
 
-## Como rodar
+## Collected fields
+
+CNES code, trade name, legal name, facility type, address, ZIP code,
+municipality, state, phone, e-mail, latitude/longitude, whether it is open 24
+hours, and weekly opening hours.
+
+## Usage
 
     pip install -r requirements.txt
     python scraper.py
 
-Por padrão coleta os estabelecimentos de Igarassu-PE (código 260680) e gera
-`estabelecimentos_igarassu.csv`.
+By default it collects facilities from Igarassu, PE (municipality code 260680)
+and writes `estabelecimentos_igarassu.csv`.
+
+## Notes on the data
+
+The data comes straight from a registry filled in by each facility, so some
+fields are missing or inconsistent (phone formats, e-mails, a few wrong
+coordinates). Facilities that are open 24 hours have no opening hours listed.
