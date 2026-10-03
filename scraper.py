@@ -24,8 +24,8 @@ def criar_sessao():
     return sessao
 
 
-def buscar_lista(sessao, codigo_municipio):
-    resposta = sessao.get(BASE, params={"municipio": codigo_municipio},
+def buscar_lista(sessao, codigo_municipio, codigo_natureza):
+    resposta = sessao.get(BASE, params={"municipio": codigo_municipio, "natureza": codigo_natureza},
                           headers=HEADERS, timeout=30)
     resposta.raise_for_status()
     return resposta.json()
@@ -53,7 +53,7 @@ def formatar_horarios(horarios):
 
 def main():
     sessao = criar_sessao()
-    lista = buscar_lista(sessao, "260680")  # Igarassu
+    lista = buscar_lista(sessao, "260680", "1")  # Igarassu
     print(f"{len(lista)} estabelecimentos encontrados")
 
     linhas = []
