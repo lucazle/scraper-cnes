@@ -32,6 +32,9 @@ hours, and weekly opening hours.
 By default it collects facilities from Igarassu, PE (municipality code 260680)
 and writes `estabelecimentos_igarassu.csv`.
 
+A `descartados.csv` file lists the facilities that were skipped (and why),
+so the team can handle them later.
+
 ## Notes on the data
 
 The data comes straight from a registry filled in by each facility, so some
